@@ -2,7 +2,12 @@
   --primary-color: #36507d;
 }
 
+body {
+  margin: 0;
+}
+
 .App {
   text-align: left;
+  height: 100vh;
   background-color: var(--primary-color);
 }
