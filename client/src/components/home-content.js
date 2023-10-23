@@ -2,9 +2,11 @@ import React from "react";
 
 const HomeContent = (props) => {
   const { books } = props;
-  if (Array.isArray(books) || !books.length) {
+  debugger;
+  if (!Array.isArray(books) || !books.length) {
     return <div className="allbooks">No books found.</div>;
   }
+
   return (
     <div className="allbooks">
       <h1 className="mb-4">All Books</h1>
@@ -17,7 +19,7 @@ const HomeContent = (props) => {
               console.log("redirect to book");
             }}
           >
-            <img src={book.volumeInfo.imageLinks.thumbnail} alt="book"></img>
+            <img src={book.image} alt="book"></img>
           </div>
         ))}
       </div>
