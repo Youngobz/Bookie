@@ -4,10 +4,9 @@
 
 body {
   margin: 0;
+  background-color: var(--primary-color);
 }
 
 .App {
   text-align: left;
-  height: 100vh;
-  background-color: var(--primary-color);
 }
