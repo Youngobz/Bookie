@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
+import { create } from "../service/auth";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Signup() {
+export default function Signup() {
   const classes = useStyles();
   const [values, setValues] = useState({
     name: "",
@@ -55,7 +56,19 @@ function Signup() {
   };
 
   const clickSubmit = () => {
-    console.log("You're login.");
+    const user = {
+      name: values.name || undefined,
+      email: values.email || undefined,
+      password: values.password || undefined,
+    };
+    debugger;
+    create(user).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        setValues({ ...values, error: "", open: true });
+      }
+    });
   };
 
   return (
@@ -132,5 +145,3 @@ function Signup() {
     </div>
   );
 }
-
-export default Signup;

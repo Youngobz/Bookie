@@ -1,84 +1,92 @@
-const { User, Thought } = require("../models");
+const User = require("../models/userModel");
+const extend = require("lodash/extend");
+const errorHandler = require("../helpers/dbErrorHandler");
+
+const create = async (req, res) => {
+  const user = new User(req.body);
+  try {
+    await user.save();
+    return res.status(200).json({
+      message: "Successfully signed up!",
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+/**
+ * Load user and append to req.
+ */
+const userByID = async (req, res, next, id) => {
+  try {
+    let user = await User.findById(id);
+    if (!user)
+      return res.status("400").json({
+        error: "User not found",
+      });
+    req.profile = user;
+    next();
+  } catch (err) {
+    return res.status("400").json({
+      error: "Could not retrieve user",
+    });
+  }
+};
+
+const read = (req, res) => {
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+  return res.json(req.profile);
+};
+
+const list = async (req, res) => {
+  try {
+    let users = await User.find().select("name email updated created");
+    res.json(users);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+const update = async (req, res) => {
+  try {
+    let user = req.profile;
+    user = extend(user, req.body);
+    user.updated = Date.now();
+    await user.save();
+    user.hashed_password = undefined;
+    user.salt = undefined;
+    res.json(user);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+const remove = async (req, res) => {
+  try {
+    let user = req.profile;
+    let deletedUser = await user.remove();
+    deletedUser.hashed_password = undefined;
+    deletedUser.salt = undefined;
+    res.json(deletedUser);
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
 
 module.exports = {
-  getUser(req, res) {
-    User.find({})
-      .then((user) => res.json(user))
-      .catch((err) => res.status(500).json(err));
-  },
-
-  getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userId })
-      .populate("thoughts")
-      .populate("friends")
-      .select("-__v")
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No User found with that ID!" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-
-  createUser(req, res) {
-    User.create(req.body)
-      .then((user) => res.json(user))
-      .catch((err) => {
-        console.log(err);
-        return res.status(500).json(err);
-      });
-  },
-
-  updateUser(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $set: req.body },
-      { runValidators: true, new: true }
-    )
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No User found with this ID!" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-
-  deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.userId })
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No User found with this ID!" })
-          : Thought.deleteMany({ _id: { $in: user.thoughts } })
-      )
-      .then(() => res.json({ message: "User and User's Thoughts deleted!" }))
-      .catch((err) => res.status(500).json(err));
-  },
-
-  addFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $addToSet: { friends: req.params.friendId } },
-      { runValidators: true, new: true }
-    )
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No User found with this ID!" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
-
-  deleteFriend(req, res) {
-    User.findOneAndUpdate(
-      { _id: req.params.userId },
-      { $pull: { friends: req.params.friendId } },
-      { new: true }
-    )
-      .then((user) =>
-        !user
-          ? res.status(404).json({ message: "No User found with this ID!" })
-          : res.json(user)
-      )
-      .catch((err) => res.status(500).json(err));
-  },
+  create,
+  userByID,
+  read,
+  list,
+  remove,
+  update,
 };

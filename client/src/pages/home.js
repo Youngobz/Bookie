@@ -1,7 +1,12 @@
-import React from "react";
+import React, { Fragment } from "react";
+import HomeContent from "../components/home-content";
 
 function Home(props) {
-  return <div className="main-container">Home Page is working...</div>;
+  return (
+    <Fragment>
+      <HomeContent books={[]} />
+    </Fragment>
+  );
 }
 
 export default Home;
