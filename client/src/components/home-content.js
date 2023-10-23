@@ -1,14 +1,18 @@
 import React from "react";
+import Styled from "styled-components";
+
+const HomeWrapper = Styled.div`
+  text-align: center;
+`;
 
 const HomeContent = (props) => {
   const { books } = props;
-  debugger;
   if (!Array.isArray(books) || !books.length) {
-    return <div className="allbooks">No books found.</div>;
+    return <HomeWrapper>No books found.</HomeWrapper>;
   }
 
   return (
-    <div className="allbooks">
+    <HomeWrapper>
       <h1 className="mb-4">All Books</h1>
       <div className="row">
         {books.map((book, index) => (
@@ -23,7 +27,7 @@ const HomeContent = (props) => {
           </div>
         ))}
       </div>
-    </div>
+    </HomeWrapper>
   );
 };
 
