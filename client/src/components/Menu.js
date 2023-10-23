@@ -31,7 +31,7 @@ const Menu = (props) => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" color="inherit">
-          MERN Expense Tracker
+          Book Review
         </Typography>
         <div>
           <Link to="/">
