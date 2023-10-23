@@ -7,6 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import { makeStyles } from "@material-ui/core/styles";
+import auth from "../service/auth-helper";
+import { Navigate, useLocation } from "react-router-dom";
+import { signin } from "../service/auth";
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -34,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Login(props) {
+export default function Signin(props) {
   const classes = useStyles();
+  const location = useLocation;
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -44,12 +48,35 @@ function Login(props) {
   });
 
   const clickSubmit = () => {
-    console.log("You're login.");
+    const user = {
+      email: values.email || undefined,
+      password: values.password || undefined,
+    };
+
+    signin(user).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error });
+      } else {
+        auth.authenticate(data, () => {
+          setValues({ ...values, error: "", redirectToReferrer: true });
+        });
+      }
+    });
   };
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
+
+  const { from } = location.state || {
+    from: {
+      pathname: "/",
+    },
+  };
+  const { redirectToReferrer } = values;
+  if (redirectToReferrer) {
+    return <Navigate to={from} />;
+  }
 
   return (
     <Card className={classes.card}>
@@ -99,5 +126,3 @@ function Login(props) {
     </Card>
   );
 }
-
-export default Login;
