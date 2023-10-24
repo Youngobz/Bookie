@@ -8,22 +8,17 @@ import AddIcon from "@material-ui/icons/AddBoxRounded";
 import Button from "@material-ui/core/Button";
 import auth from "../service/auth-helper";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Styled from "styled-components";
+
+const AddBookButton = Styled.button`
+  background: #fff;
+`;
 
 const isActive = (location, path) => {
   if (location.pathname == path) return { color: "#69f0ae" };
   else return { color: "#ffffff" };
 };
-const isButtonActive = (location, path) => {
-  if (location.pathname.includes(path))
-    return { color: "#fffde7", backgroundColor: "#2bbd7e", marginRight: 10 };
-  else
-    return {
-      color: "#2bbd7e",
-      backgroundColor: "#ffffff",
-      border: "1px solid #2bbd7e",
-      marginRight: 10,
-    };
-};
+
 const Menu = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,6 +36,14 @@ const Menu = (props) => {
           </Link>
         </div>
         <div style={{ position: "absolute", right: "10px" }}>
+          {auth.isAuthenticated() && (
+            <Link to="/add-book">
+              <AddBookButton>
+                <AddIcon />
+                <span>Add Book</span>
+              </AddBookButton>
+            </Link>
+          )}
           <span style={{ float: "right" }}>
             {!auth.isAuthenticated() && (
               <span>
