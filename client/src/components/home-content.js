@@ -1,12 +1,12 @@
 import React from "react";
-import Styled from "styled-components";
+import styled from "styled-components";
 
-const HomeWrapper = Styled.div`
+const HomeWrapper = styled.div`
   text-align: center;
   margin: 0;
 `;
 
-const BookCardWrapper = Styled.div`
+const BookCardWrapper = styled.div`
   display: flex;
   justify-content: start;
   margin: 0 auto;
@@ -14,7 +14,7 @@ const BookCardWrapper = Styled.div`
   flex-wrap: wrap;
 `;
 
-const BookCard = Styled.div`
+const BookCard = styled.div`
   width: 200px;
   margin: 20px;
   height: 200px;
@@ -25,13 +25,13 @@ const BookCard = Styled.div`
   }
 `;
 
-const BookImage = Styled.img`
+const BookImage = styled.img`
   object-fit: cover;
   width: 100%;
   height: 100%;
 `;
 
-const BookTitle = Styled.div`
+const BookTitle = styled.div`
   color: #fff;
 `;
 

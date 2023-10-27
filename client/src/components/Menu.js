@@ -8,10 +8,24 @@ import AddIcon from "@material-ui/icons/AddBoxRounded";
 import Button from "@material-ui/core/Button";
 import auth from "../service/auth-helper";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Styled from "styled-components";
+import styled from "styled-components";
 
-const AddBookButton = Styled.button`
+const AddBookButton = styled.button`
   background: #fff;
+  display: flex;
+
+  span {
+    align-self: center;
+  }
+`;
+
+const RightNavBar = styled.div`
+  position: absolute;
+  right: 10px;
+
+  a {
+    display: inline-block;
+  }
 `;
 
 const isActive = (location, path) => {
@@ -35,7 +49,7 @@ const Menu = (props) => {
             </IconButton>
           </Link>
         </div>
-        <div style={{ position: "absolute", right: "10px" }}>
+        <RightNavBar>
           {auth.isAuthenticated() && (
             <Link to="/add-book">
               <AddBookButton>
@@ -68,7 +82,7 @@ const Menu = (props) => {
               </span>
             )}
           </span>
-        </div>
+        </RightNavBar>
       </Toolbar>
     </AppBar>
   );
