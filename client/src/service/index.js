@@ -57,4 +57,13 @@ const updateBooks = async (reqBody) => {
   }
 };
 
-export { getBooks, addBooks, deleteBooks, updateBooks };
+const getBookById = async (bookId) => {
+  try {
+    let response = await fetch(`/api/books/${bookId}`, { method: "GET" });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { getBooks, addBooks, deleteBooks, updateBooks, getBookById };

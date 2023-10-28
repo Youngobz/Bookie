@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Menu from "./components/Menu";
 import AddBook from "./pages/add-book";
 import UpdateBook from "./pages/update-book";
+import BookDetails from "./pages/book-details";
 
 const routeList = [
   { path: "/", component: <Home /> },
@@ -13,6 +14,7 @@ const routeList = [
   { path: "/signup", component: <Signup /> },
   { path: "/add-book", component: <AddBook /> },
   { path: "/update-book", component: <UpdateBook /> },
+  { path: "/book-details/:bookId", component: <BookDetails /> },
 ];
 
 function App() {

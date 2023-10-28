@@ -65,8 +65,10 @@ const Title = styled.span`
   display: inline-block;
   width: 120px;
   white-space: nowrap;
-  overflow: hidden !important;
+  overflow: hidden;
   text-overflow: ellipsis;
+  cursor: pointer;
+  text-align: left;
 `;
 
 const HomeContent = (props) => {
@@ -84,6 +86,10 @@ const HomeContent = (props) => {
     });
   };
 
+  const openBookDetails = (bookData) => {
+    navigate(`/book-details/${bookData._id}`);
+  };
+
   return (
     <HomeWrapper>
       <h1 className="mb-4">All Books</h1>
@@ -91,7 +97,9 @@ const HomeContent = (props) => {
         {books.map((book, index) => (
           <BookCardWrapper>
             <BookTitle>
-              <Title title={book.title}>{book.title}</Title>
+              <Title onClick={() => openBookDetails(book)} title={book.title}>
+                {book.title}
+              </Title>
               <span>
                 <EditIconWrapper onClick={() => editBtnHandler(book)}>
                   <EditIcon />
