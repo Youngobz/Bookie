@@ -24,7 +24,6 @@ function Home(props) {
   }, []);
 
   const onDeleteBtnClicked = async (bookId) => {
-    debugger;
     await deleteBooks(bookId);
     await getBookRequest();
   };
