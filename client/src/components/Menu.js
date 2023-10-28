@@ -13,6 +13,7 @@ import styled from "styled-components";
 const AddBookButton = styled.button`
   background: #fff;
   display: flex;
+  cursor: pointer;
 
   span {
     align-self: center;

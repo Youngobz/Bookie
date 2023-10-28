@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import HomeContent from "../components/home-content";
 import { useNavigate } from "react-router-dom";
-import { getBooks } from "../service";
+import { getBooks, deleteBooks } from "../service";
 
 function Home(props) {
   const [books, setBooks] = useState([]);
@@ -23,9 +23,15 @@ function Home(props) {
     getBookRequest();
   }, []);
 
+  const onDeleteBtnClicked = async (bookId) => {
+    debugger;
+    await deleteBooks(bookId);
+    await getBookRequest();
+  };
+
   return (
     <Fragment>
-      <HomeContent books={books} />
+      <HomeContent books={books} deleteBooks={onDeleteBtnClicked} />
     </Fragment>
   );
 }
