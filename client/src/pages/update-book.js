@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { addBooks } from "../service";
-import { useNavigate } from "react-router-dom";
+import { updateBooks } from "../service";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const FormWrapper = styled.div`
   margin: auto;
@@ -152,8 +152,9 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const AddBook = () => {
+const UpdateBook = () => {
   const navigate = useNavigate();
+  const { state } = useLocation();
   const [values, setValues] = useState({
     title: "",
     link: "",
@@ -162,13 +163,17 @@ const AddBook = () => {
     authors: "",
   });
 
+  useEffect(() => {
+    setValues(state.bookData);
+  }, []);
+
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addBooks(values).then((data) => {
+    updateBooks(values).then((data) => {
       if (data.success) {
         navigate("/");
       }
@@ -179,7 +184,7 @@ const AddBook = () => {
     <div>
       <FormWrapper>
         <FormContent onSubmit={handleSubmit}>
-          <FormHeading>Add Your Book</FormHeading>
+          <FormHeading>Update Your Book</FormHeading>
           <FormGroup className={`${values.title.length && "not-empty"}`}>
             <InputField
               type="text"
@@ -236,7 +241,7 @@ const AddBook = () => {
             </FormLabel>
           </FormGroup>
           <ButtonWrapper>
-            <Button type="submit">Add New Book</Button>
+            <Button type="submit">Update Book</Button>
           </ButtonWrapper>
         </FormContent>
       </FormWrapper>
@@ -244,4 +249,4 @@ const AddBook = () => {
   );
 };
 
-export default AddBook;
+export default UpdateBook;

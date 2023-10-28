@@ -5,12 +5,14 @@ import Signup from "./pages/signup";
 import Login from "./pages/login";
 import Menu from "./components/Menu";
 import AddBook from "./pages/add-book";
+import UpdateBook from "./pages/update-book";
 
 const routeList = [
   { path: "/", component: <Home /> },
   { path: "/login", component: <Login /> },
   { path: "/signup", component: <Signup /> },
   { path: "/add-book", component: <AddBook /> },
+  { path: "/update-book", component: <UpdateBook /> },
 ];
 
 function App() {

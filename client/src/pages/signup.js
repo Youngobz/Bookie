@@ -61,7 +61,6 @@ export default function Signup() {
       email: values.email || undefined,
       password: values.password || undefined,
     };
-    debugger;
     create(user).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error });
