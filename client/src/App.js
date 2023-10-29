@@ -7,6 +7,8 @@ import Menu from "./components/Menu";
 import AddBook from "./pages/add-book";
 import UpdateBook from "./pages/update-book";
 import BookDetails from "./pages/book-details";
+import Payment from "./pages/payment";
+import Completion from "./pages/payment-completion";
 
 const routeList = [
   { path: "/", component: <Home /> },
@@ -15,6 +17,8 @@ const routeList = [
   { path: "/add-book", component: <AddBook /> },
   { path: "/update-book", component: <UpdateBook /> },
   { path: "/book-details/:bookId", component: <BookDetails /> },
+  { path: "/payment", component: <Payment /> },
+  { path: "/payment-success", component: <Completion /> },
 ];
 
 function App() {

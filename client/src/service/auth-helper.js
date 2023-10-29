@@ -8,6 +8,15 @@ const auth = {
       return JSON.parse(sessionStorage.getItem("jwt"));
     else return false;
   },
+  getUserName() {
+    if (typeof window == "undefined") return false;
+    if (sessionStorage.getItem("jwt")) {
+      const jwtToken = JSON.parse(sessionStorage.getItem("jwt"));
+      return jwtToken?.user?.name;
+    } else {
+      return false;
+    }
+  },
   authenticate(jwt, cb) {
     if (typeof window !== "undefined")
       sessionStorage.setItem("jwt", JSON.stringify(jwt));

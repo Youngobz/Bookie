@@ -20,6 +20,13 @@ const AddBookButton = styled.button`
   }
 `;
 
+const DonateButton = styled.button`
+  padding: 8px;
+  border-radius: 8px;
+  background: var(--primary-color);
+  color: #ececec;
+`;
+
 const RightNavBar = styled.div`
   position: absolute;
   right: 10px;
@@ -27,6 +34,15 @@ const RightNavBar = styled.div`
   a {
     display: inline-block;
   }
+`;
+
+const HomeButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const DonateButttonWrapper = styled.div`
+  align-self: center;
 `;
 
 const isActive = (location, path) => {
@@ -37,19 +53,27 @@ const isActive = (location, path) => {
 const Menu = (props) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const doRedirectToPaymentPage = () => {
+    navigate("/payment");
+  };
   return (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" color="inherit">
           Bookie
         </Typography>
-        <div>
+        <HomeButtonWrapper>
           <Link to="/">
             <IconButton aria-label="Home" style={isActive(location, "/")}>
               <HomeIcon />
             </IconButton>
           </Link>
-        </div>
+          <DonateButttonWrapper>
+            <DonateButton onClick={doRedirectToPaymentPage}>
+              Donate me
+            </DonateButton>
+          </DonateButttonWrapper>
+        </HomeButtonWrapper>
         <RightNavBar>
           {auth.isAuthenticated() && (
             <Link to="/add-book">
