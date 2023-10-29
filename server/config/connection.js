@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-const config = require("./config");
+
+const uri = "mongodb+srv://bookuser:Book_123@cluster0.qqirxgi.mongodb.net/?retryWrites=true&w=majority";
 
 // Connection URL
-mongoose.connect(config.mongoUri, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-mongoose.connection.on("error", () => {
-  throw new Error(`unable to connect to database: ${config.mongoUri}`);
+mongoose.connection.on("error", (err) => {
+  throw new Error(`unable to connect to database: ${uri}`);
 });
 
 module.exports = mongoose.connection;
