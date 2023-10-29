@@ -1,6 +1,5 @@
 const express = require("express");
 const bookCtrl = require("../../controllers/bookController");
-const authCtrl = require("../../controllers/authController");
 
 const router = express.Router();
 
@@ -11,5 +10,8 @@ router
   .get(bookCtrl.read)
   .put(bookCtrl.update)
   .delete(bookCtrl.remove);
+
+router.route("/:bookId/review").post(bookCtrl.createReview);
+router.route("/:bookId/review/:reviewId").delete(bookCtrl.deleteReview);
 
 module.exports = router;

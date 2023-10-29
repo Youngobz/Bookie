@@ -41,7 +41,7 @@ const Menu = (props) => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" color="inherit">
-          Book Review
+          Bookie
         </Typography>
         <div>
           <Link to="/">

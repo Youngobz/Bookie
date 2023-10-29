@@ -3,6 +3,7 @@ import styled from "styled-components";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import EditIcon from "@material-ui/icons/Edit";
 import { useNavigate } from "react-router-dom";
+import auth from "../service/auth-helper";
 
 const HomeWrapper = styled.div`
   text-align: center;
@@ -69,6 +70,7 @@ const Title = styled.span`
   text-overflow: ellipsis;
   cursor: pointer;
   text-align: left;
+  padding: 4px 0;
 `;
 
 const HomeContent = (props) => {
@@ -100,14 +102,16 @@ const HomeContent = (props) => {
               <Title onClick={() => openBookDetails(book)} title={book.title}>
                 {book.title}
               </Title>
-              <span>
-                <EditIconWrapper onClick={() => editBtnHandler(book)}>
-                  <EditIcon />
-                </EditIconWrapper>
-                <DeleteIconWrapper onClick={() => deleteBooks(book._id)}>
-                  <DeleteForeverIcon />
-                </DeleteIconWrapper>
-              </span>
+              {auth.isAuthenticated() && (
+                <span>
+                  <EditIconWrapper onClick={() => editBtnHandler(book)}>
+                    <EditIcon />
+                  </EditIconWrapper>
+                  <DeleteIconWrapper onClick={() => deleteBooks(book._id)}>
+                    <DeleteForeverIcon />
+                  </DeleteIconWrapper>
+                </span>
+              )}
             </BookTitle>
             <BookCard
               className="image-container d-flex justify-content-start m-3"

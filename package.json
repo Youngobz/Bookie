@@ -1,10 +1,11 @@
 {
-  "name": "mern-stack",
+  "name": "bookie",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"cd server && npm run start\" \"cd client && npm run start\""
   },
   "author": "",
   "license": "ISC",
