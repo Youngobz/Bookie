@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getBookById } from "../service";
+import { getBookById, submitReview, deleteReview } from "../service";
 import styled from "styled-components";
 import CallMadeIcon from "@material-ui/icons/CallMade";
+import ReviewList from "../components/review-list";
+import AddReview from "../components/add-review";
+import auth from "../service/auth-helper";
 
 const BookDetailWrapper = styled.div`
   max-width: 900px;
@@ -11,6 +14,7 @@ const BookDetailWrapper = styled.div`
   text-align: center;
   background: #ececec;
   padding: 20px;
+  border-radius: 8px;
 `;
 
 const BookDetailCard = styled.div`
@@ -59,9 +63,22 @@ const AuthorWrpper = styled.div`
   }
 `;
 
+const AddReviewWrapper = styled.div`
+  padding: 0 20px;
+  margin-bottom: 10px;
+`;
+
+const ReviewListWrapper = styled.div`
+  padding: 0 20px;
+  margin-bottom: 10px;
+  border-top: 2px solid #3f51b5;
+`;
+
 const BookDetails = () => {
   const { bookId } = useParams();
   const [bookData, setBookData] = useState(null);
+  const [selectedRating, setSelectedRating] = useState(0);
+  const [reviewComment, setReviewComment] = useState("");
 
   const getBookDetails = async () => {
     const resp = await getBookById(bookId);
@@ -71,6 +88,36 @@ const BookDetails = () => {
   useEffect(() => {
     getBookDetails();
   }, []);
+
+  const onRatingClicked = (ratingVal) => {
+    setSelectedRating(ratingVal);
+  };
+
+  const onReviewdAdded = (event) => {
+    setReviewComment(event.currentTarget.value);
+  };
+
+  const onSubmitReview = async (event) => {
+    event.preventDefault();
+    const reqBody = {
+      bookId,
+      rating: selectedRating,
+      reviewBody: reviewComment,
+      username: auth.getUserName(),
+    };
+    const resp = await submitReview(reqBody);
+    if (resp.success) {
+      setReviewComment("");
+      setBookData(resp.data);
+    }
+  };
+
+  const onDeleteReview = async (reviewId) => {
+    const resp = await deleteReview(bookId, reviewId);
+    if (resp.success) {
+      setBookData(resp.data);
+    }
+  };
 
   if (!bookData) {
     return <div>Book is Loading...</div>;
@@ -98,7 +145,23 @@ const BookDetails = () => {
           <span>-{bookData.authors.join(",")}</span>
         </AuthorWrpper>
       </BookDetailCard>
-      <div className="Review-list"></div>
+      {auth.isAuthenticated() && (
+        <AddReviewWrapper>
+          <AddReview
+            selectedRating={selectedRating}
+            reviewComment={reviewComment}
+            onRatingClicked={onRatingClicked}
+            onReviewdAdded={onReviewdAdded}
+            onSubmitForm={onSubmitReview}
+          />
+        </AddReviewWrapper>
+      )}
+      <ReviewListWrapper>
+        <ReviewList
+          dataList={bookData.reviews}
+          onDeleteHandler={onDeleteReview}
+        />
+      </ReviewListWrapper>
     </BookDetailWrapper>
   );
 };
