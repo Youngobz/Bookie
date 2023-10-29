@@ -46,7 +46,7 @@ const DonateButttonWrapper = styled.div`
 `;
 
 const isActive = (location, path) => {
-  if (location.pathname == path) return { color: "#69f0ae" };
+  if (location.pathname === path) return { color: "#69f0ae" };
   else return { color: "#ffffff" };
 };
 
