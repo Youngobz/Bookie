@@ -56,7 +56,7 @@ const ReviewList = (props) => {
       {dataList.map((reviewDetails) => {
         const { rating, createdAt, reviewBody, username, _id } = reviewDetails;
         return (
-          <RatingCardWrapper>
+          <RatingCardWrapper key={_id}>
             <RatingWrapper>
               <ReactStars {...reviewAttr} value={rating} />
               <DeleteButton
