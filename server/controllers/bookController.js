@@ -75,10 +75,50 @@ const remove = async (req, res) => {
   }
 };
 
+const createReview = async (req, res) => {
+  try {
+    const bookDetail = await Book.findOneAndUpdate(
+      { _id: req.params.bookId },
+      { $addToSet: { reviews: req.body } },
+      { runValidators: true, new: true }
+    );
+    return res.status(200).json({
+      message: "Review Added Successfully!",
+      success: true,
+      data: bookDetail,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
+const deleteReview = async (req, res) => {
+  try {
+    const bookDetail = await Book.findOneAndUpdate(
+      { _id: req.params.bookId },
+      { $pull: { reviews: { _id: req.params.reviewId } } },
+      { runValidators: true, new: true }
+    );
+    return res.status(200).json({
+      message: "Review Removed Successfully!",
+      success: true,
+      data: bookDetail,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err),
+    });
+  }
+};
+
 module.exports = {
   addBook,
   list,
   read,
   update,
   remove,
+  createReview,
+  deleteReview,
 };

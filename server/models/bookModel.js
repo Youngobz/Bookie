@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { reviewSchema } = require("./reviewModel");
 
 const BookSchema = new mongoose.Schema(
   {
@@ -21,6 +22,7 @@ const BookSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    reviews: [reviewSchema],
   },
   {
     toJSON: {
