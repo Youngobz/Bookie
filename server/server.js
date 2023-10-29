@@ -42,7 +42,11 @@ const resolvers = {
 };
 
 const app = express();
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({ 
+  typeDefs,
+  resolvers,
+  cache: 'bounded',
+});
 
 (async () => {
   await server.start();
