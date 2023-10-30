@@ -1,4 +1,4 @@
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const express = require("express");
 const db = require("./config/connection");
@@ -62,6 +62,10 @@ const server = new ApolloServer({
   // enable CORS - Cross Origin Resource Sharing
   app.use(cors());
 
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+  
   // mount routes
   app.use(routes);
 
