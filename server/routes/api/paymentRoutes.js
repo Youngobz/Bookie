@@ -2,19 +2,16 @@ const express = require("express");
 
 const router = express.Router();
 
-const stripe = require("stripe")(
-  "sk_test_51O6U88J88XA3XoTnFLegE5ozld0sN2yGOlaLviwKs1Trhgiui8haUPeUmCxF3CL1nDNSkI2ferFckKWMYYRncjgF00H0Xw0pKa",
-  {
-    apiVersion: "2023-10-16",
-  }
-);
+const Stripe = require('stripe');
+const stripe = Stripe('sk_test_51Hn03nJLmQQgCJhaDB4aoavTcAZoXGUTlXSibvyIsUdfTNG23aa0DnXDphbxdXey4pT1uV0G4JugMBJxuvGKdmt4009E6jYZhI');
 
 router.post("/create-payment-intent", async (req, res) => {
   try {
     const paymentIntent = await stripe.paymentIntents.create({
       currency: "AUD",
-      amount: 10,
-      automatic_payment_methods: { enabled: true },
+      amount: 100,
+      payment_method_types: ['card'], // Specify the payment method types here
+      // automatic_payment_methods: { enabled: true }, // You can remove this if you are specifying payment method types
     });
 
     // Send publishable key and PaymentIntent details to client
@@ -30,10 +27,11 @@ router.post("/create-payment-intent", async (req, res) => {
   }
 });
 
+
 router.get("/config", (req, res) => {
   res.send({
     publishableKey:
-      "pk_test_51O6U88J88XA3XoTnSJVCROUu8tUfZcoHspk31k3JBWqAqNrTjldczdaYoZyG0M0mHh0iGcREvijNYqk2vOa2dGqi00hyytQRMu",
+      "pk_test_51Hn03nJLmQQgCJhaV01ZWSKuztr7E1K8ghlarggcsmTY1qTTFULzYuMIKr33RQggmcENLXmxH1toFw3TWaQtFjsA003AsmGcLY",
   });
 });
 
