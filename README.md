@@ -22,6 +22,7 @@ Deployed application can be found here: https://bookie-bookreviews-b0300ac8ca21.
 - **Socket.io**: Enables real-time, bidirectional, and event-based communication between web clients and servers.
 - **JWT (JSON Web Tokens)**: Used for securely transmitting information between parties as a JSON object.
 - **Bcrypt**: A library for hashing passwords before storing them in the database.
+- **GraphQL**: A query language for APIs enabling precise data retrieval and aggregation, enhancing performance and developer experience.
 
 ## User Stories and Acceptance Criteria
 
