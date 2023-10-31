@@ -2,7 +2,7 @@
 
 ## Overview
 Bookie is a book review application that allows users to share their thoughts and opinions on different books. Users can create an account, log in, and start reviewing books or read reviews from other users. This application is designed to foster a community of book lovers who can connect and engage over shared interests in literature.
-
+Deployed application can be found here: https://bookie-bookreviews-b0300ac8ca21.herokuapp.com/
 ## Features
 - **User Authentication**: Users can sign up, log in, and log out of the application.
 - **Book Reviews**: Users can write reviews for books, providing their insights, thoughts, and ratings.
