@@ -6,9 +6,8 @@ Deployed application can be found here: https://bookie-bookreviews-b0300ac8ca21.
 ## Features
 - **User Authentication**: Users can sign up, log in, and log out of the application.
 - **Book Reviews**: Users can write reviews for books, providing their insights, thoughts, and ratings.
-- **Search Functionality**: Users can search for books and view existing reviews.
 - **Real-Time Updates**: Users can see new reviews and comments in real-time, enhancing the interactive experience.
-- **Profile Management**: Users can create and manage their profiles, showcasing their reviews and favorite books.
+
 
 ## Frontend Technology Stack
 - **React**: A JavaScript library for building user interfaces.
@@ -107,7 +106,8 @@ To run the application locally, follow these steps:
 ### 3. Accessibility and Internationalization
 - **Improve Accessibility**: Ensure that the application is accessible to users with disabilities.
 - **Support Multiple Languages**: Add support for multiple languages to cater to a global audience.
-
+- **Search Functionality**: Users can search for books and view existing reviews.
+- **Profile Management**: Users can create and manage their profiles, showcasing their reviews and favorite books.
 ### 4. Performance Optimization
 - **Optimize Load Times**: Work on optimizing the load times of the application, ensuring that pages load quickly even with a large number of reviews.
 - **Caching Strategies**: Implement caching strategies to reduce server load and improve performance.
